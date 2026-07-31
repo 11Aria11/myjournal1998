@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Journal 1998</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F2F4F8;
+    --surface: #FFFFFF;
+    --surface-muted: #E8EBF1;
+    --ink: #2B303A;
+    --ink-soft: #5C6472;
+    --ink-faint: #9099A8;
+    --border: #DBDFE7;
+    --border-strong: #C3C9D4;
+
+    --sky: #55779E;
+    --sky-100: #E4EBF3;
+    --sky-600: #3E5A7C;
+    --sky-800: #2A3F58;
+
+    --dusk: #4B5563;
+    --dusk-100: #E9EBEE;
+    --dusk-600: #3A4149;
+
+    --sage: #5C8A6E;
+    --sage-100: #E4EFE7;
+    --sage-700: #33553F;
+
+    --clay: #C9694A;
+    --clay-100: #F7E5DF;
+    --clay-700: #7C3821;
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+
+    --font-display: "Fraunces", serif;
+    --font-body: "Inter", sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .shell{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding: 32px 16px 64px;
+  }
+
+  .devbar{
+    width:100%;
+    max-width: 980px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom: 28px;
+    padding: 10px 18px;
+    background: var(--surface);
+    border:0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    flex-wrap: wrap;
+  }
+  .devbar-title{
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .devbar-links{ display:flex; gap:6px; flex-wrap:wrap; }
+  .devbar-links button{
+    font-family: var(--font-body);
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 0.5px solid var(--border);
+    background: var(--surface);
+    color: var(--ink-soft);
+    cursor:pointer;
+  }
+  .devbar-links button:hover{ background: var(--surface-muted); }
+  .devbar-links button.active{
+    background: var(--ink);
+    color: var(--surface);
+    border-color: var(--ink);
+  }
+
+  .phone{
+    width: 380px;
+    max-width: 100%;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(43,48,58,0.04), 0 12px 32px rgba(43,48,58,0.06);
+    display:flex;
+    flex-direction:column;
+    min-height: 700px;
+  }
+
+  .screen{ display:flex; flex-direction:column; flex:1; min-height:700px; }
+
+  /* ---------- shared bits ---------- */
+  .pad{ padding: 24px 22px; }
+  .center-pad{ padding: 40px 26px; text-align:center; }
+
+  .brand-mark{
+    display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom: 8px;
+  }
+  .brand-mark svg{ width:40px; height:40px; }
+  .brand-name{ font-family: var(--font-display); font-size: 20px; font-weight:500; margin:0; }
+  .brand-tag{ font-size: 13px; color: var(--ink-soft); margin:0; }
+
+  h1.h{ font-family: var(--font-display); font-weight:500; font-size:21px; margin:0 0 6px; }
+  p.sub{ font-size: 13.5px; color: var(--ink-soft); margin:0; line-height:1.6; }
+
+  label.field-label{ font-size:12.5px; color: var(--ink-soft); display:block; margin-bottom:5px; }
+  input[type=text], input[type=email], input[type=password], select, textarea{
+    width:100%;
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus{ border-color: var(--sky); box-shadow: 0 0 0 3px var(--sky-100); }
+  textarea{ resize:none; }
+
+  .btn{
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--ink);
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .btn:hover{ background: var(--surface-muted); }
+  .btn.primary{ background: var(--ink); color:#fff; border-color: var(--ink); }
+  .btn.primary:hover{ background: #1c2027; }
+  .btn.danger{ background: var(--clay); color:#fff; border-color: var(--clay); }
+  .btn.ghost{ border-color: transparent; background: transparent; }
+  .btn.small{ height:32px; font-size:12.5px; padding: 0 12px; }
+  .btn.block{ width:100%; }
+
+  .field-gap{ display:flex; flex-direction:column; gap:14px; }
+  .divider{ border-top:0.5px solid var(--border); }
+
+  .note{
+    display:flex; align-items:flex-start; gap:10px;
+    background: var(--surface-muted);
+    border-radius: var(--radius-sm);
+    padding: 12px 13px;
+    font-size:12.5px;
+    color: var(--ink-soft);
+    line-height:1.55;
+  }
+  .note svg{ flex-shrink:0; margin-top:1px; }
+
+  .toggle{ position:relative; width:34px; height:19px; border-radius:999px; background: var(--border-strong); cursor:pointer; flex-shrink:0; transition: background .15s; }
+  .toggle.on{ background: var(--sky); }
+  .toggle .knob{ position:absolute; top:2px; left:2px; width:15px; height:15px; border-radius:50%; background:#fff; transition: left .15s; }
+  .toggle.on .knob{ left:17px; }
+
+  .row-between{ display:flex; align-items:center; justify-content:space-between; }
+
+  .footnote{ font-size:11px; color: var(--ink-faint); text-align:center; line-height:1.6; }
+  a.link{ color: var(--sky-600); text-decoration:none; }
+
+  /* ---------- header w clouds ---------- */
+  .weather-header{
+    position:relative;
+    padding: 18px 20px 30px;
+    overflow:hidden;
+  }
+  .weather-header.teen{ background: var(--sky-100); }
+  .weather-header.adult{ background: var(--dusk-100); }
+  .cloud{
+    position:absolute;
+    background:#fff;
+    border-radius: 999px;
+    opacity:.55;
+    animation: drift 22s linear infinite;
+  }
+  @keyframes drift{
+    from{ transform: translateX(-10px); }
+    to{ transform: translateX(14px); }
+  }
+  @media (prefers-reduced-motion: reduce){ .cloud{ animation:none; } }
+  .header-row{ position:relative; display:flex; justify-content:space-between; align-items:center; }
+  .eyebrow{ font-size:11.5px; margin:0; font-weight:500; letter-spacing:.02em; }
+  .weather-header.teen .eyebrow{ color: var(--sky-600); }
+  .weather-header.adult .eyebrow{ color: var(--dusk-600); }
+  .greeting{ font-family: var(--font-display); font-weight:500; font-size:17px; margin:2px 0 0; }
+  .weather-icon{
+    width:34px; height:34px; border-radius:50%; background:#fff;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+
+  .safety-strip{
+    display:flex; align-items:center; gap:8px;
+    padding: 8px 20px;
+    background: var(--sage-100);
+    border-bottom: 0.5px solid var(--border);
+    font-size:11px; color: var(--sage-700);
+  }
+
+  .body-scroll{ flex:1; padding: 16px 20px 8px; display:flex; flex-direction:column; gap:12px; overflow-y:auto; }
+
+  .tab-row{ display:flex; gap:16px; }
+  .tab{ font-size:12.5px; padding:4px 0 8px; color: var(--ink-faint); border-bottom:2px solid transparent; cursor:pointer; }
+  .tab.active{ color: var(--ink); border-color: var(--ink); font-weight:500; }
+
+  .entry-card{ background: var(--surface-muted); border-radius: 12px; padding:14px; }
+  .entry-meta{ display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .entry-meta span{ font-size:11.5px; color: var(--ink-soft); }
+  .entry-body{ font-size:13.5px; line-height:1.6; margin:0 0 10px; }
+  .pill{ font-size:12px; background:#fff; border:0.5px solid var(--border); border-radius:999px; padding:3px 10px; }
+
+  .bottom-nav{ display:flex; justify-content:space-around; padding:9px 0; border-top:0.5px solid var(--border); background:var(--surface); }
+  .nav-item{ display:flex; flex-direction:column; align-items:center; gap:2px; cursor:pointer; color: var(--ink-faint); }
+  .nav-item.active{ color: var(--sky-600); }
+  .nav-item span{ font-size:9.5px; }
+
+  .topbar{ display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:0.5px solid var(--border); }
+  .topbar .title{ font-weight:500; font-size:14px; }
+
+  .avatar{ width:34px; height:34px; border-radius:50%; background: var(--sky-100); color: var(--sky-600); display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:500; flex-shrink:0; }
+
+  .crisis-overlay{ min-height:700px; background: rgba(30,33,40,0.5); display:flex; align-items:center; justify-content:center; padding: 30px 20px; }
+  .crisis-card{ width:100%; background:#fff; border-radius:20px; padding: 30px 22px; display:flex; flex-direction:column; gap:20px; }
+
+  .settings-group-label{ font-size:11.5px; color: var(--ink-faint); margin: 4px 0 2px; }
+  .settings-row{ display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:0.5px solid var(--border); }
+  .settings-row:last-child{ border-bottom:none; }
+  .badge{ font-size:11.5px; border-radius:999px; padding:3px 10px; }
+  .badge.success{ background: var(--sage-100); color: var(--sage-700); }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="devbar">
+    <span class="devbar-title">My Journal 1998 &middot; clickable prototype</span>
+    <div class="devbar-links" id="devlinks"></div>
+  </div>
+  <div class="phone"><div id="app" class="screen"></div></div>
+</div>
+
+<script>
+/* ---------------- API + shared state ---------------- */
+const API_BASE = "http://localhost:3000";
+
+const state = {
+  screen: "signup",
+  tier: null,           // "teen" | "adult" -- comes from the backend after /api/verify
+  userId: null,         // real id from the backend, once signed up
+  displayName: "",
+  homeTab: "home",
+  composerText: "",
+  composerAnon: false,
+  composerComments: true,
+  feed: [],             // populated by loadFeed()
+  friendData: { requests: [], friends: [] },
+  apiError: null,       // set if a fetch fails, e.g. backend isn't running
+};
+
+async function api(path, options = {}) {
+  try {
+    const res = await fetch(API_BASE + path, {
+      headers: { "Content-Type": "application/json" },
+      ...options,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+    state.apiError = null;
+    return data;
+  } catch (err) {
+    state.apiError = err.message.includes("fetch")
+      ? "Can't reach the backend. Is it running? (npm install && node server.js on port 3000)"
+      : err.message;
+    throw err;
+  }
+}
+
+const SCREENS = ["signup","agegate","verify","home","composer","crisis","friends","settings"];
+
+function goto(screen, opts={}){
+  Object.assign(state, opts);
+  state.screen = screen;
+  render();
+  if(screen === "home") loadFeed();
+  if(screen === "friends") loadFriends();
+  if(screen === "composer") checkCrisis();
+  if(screen === "settings") loadSettingsUser();
+}
+
+async function loadFeed(){
+  try{
+    state.feed = await api(`/api/feed?userId=${state.userId}`);
+  }catch(e){ state.feed = []; }
+  if(state.screen === "home") render();
+}
+
+async function loadSettingsUser(){
+  try{ state.settingsUser = await api(`/api/users/${state.userId}`); }
+  catch(e){ state.settingsUser = null; }
+  if(state.screen === "settings") render();
+}
+async function loadFriends(){
+  try{
+    state.friendData = await api(`/api/friends?userId=${state.userId}`);
+  }catch(e){ state.friendData = []; }
+  if(state.screen === "friends") render();
+}
+
+/* ---------------- small utils ---------------- */
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function timeAgo(iso){
+  const mins = Math.max(1, Math.round((Date.now() - new Date(iso)) / 60000));
+  if(mins < 60) return `${mins}m ago`;
+  const hrs = Math.round(mins/60);
+  if(hrs < 24) return `${hrs}h ago`;
+  return `${Math.round(hrs/24)}d ago`;
+}
+
+/* ---------------- icon helpers ---------------- */
+const icon = (path, size=18, stroke="currentColor") =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
+const I = {
+  cloud: icon('<path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6 1.5A4 4 0 0 0 6.5 19h11Z"/>'),
+  lock: icon('<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'),
+  check: icon('<path d="M20 6 9 17l-5-5"/>', 15),
+  camera: icon('<path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.5"/>'),
+  heart: icon('<path d="M12 20s-7-4.4-9.5-8.7C.6 8 2 4.5 5.4 4.1 7.6 3.9 9.5 5 12 8c2.5-3 4.4-4.1 6.6-3.9C22 4.5 23.4 8 21.5 11.3 19 15.6 12 20 12 20Z"/>', 26),
+  phone: icon('<path d="M4 5c0-.6.4-1 1-1h3.2c.5 0 .9.3 1 .8l.9 3.4c.1.4 0 .8-.3 1.1L8.4 10.6a13 13 0 0 0 5 5l1.3-1.4c.3-.3.7-.4 1.1-.3l3.4.9c.5.1.8.5.8 1V19c0 .6-.4 1-1 1h-1C9.6 20 4 14.4 4 7V5Z"/>'),
+  message: icon('<path d="M4 5h16v11H8l-4 4V5Z"/>'),
+  eyeoff: icon('<path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M6.5 6.7C4.4 8 3 10 3 12c0 0 3.5 6 9 6 1.6 0 3-.5 4.2-1.2M9.9 4.2A10 10 0 0 1 12 4c5.5 0 9 6 9 6a13 13 0 0 1-2.2 2.8"/>'),
+  info: icon('<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="8" r=".3" fill="currentColor"/>', 16),
+  chev: icon('<path d="M9 6l6 6-6 6"/>', 15),
+  plus: icon('<path d="M12 5v14M5 12h14"/>', 16),
+  id: icon('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M14 10h5M14 13.5h5M4.5 17.5c.6-1.8 2-2.7 4-2.7s3.4.9 4 2.7"/>'),
+};
+
+/* ---------------- top navigation strip (dev-only helper) ---------------- */
+function renderDevLinks(){
+  const el = document.getElementById("devlinks");
+  el.innerHTML = SCREENS.map(s =>
+    `<button class="${state.screen===s?'active':''}" onclick="jumpTo('${s}')">${s}</button>`
+  ).join("");
+}
+async function jumpTo(s){
+  const needsAccount = ["verify","home","composer","friends","settings"].includes(s);
+  if(needsAccount && !state.userId){
+    try{
+      const email = `demo-${Date.now()}@local.test`;
+      const user = await api("/api/signup", { method:"POST", body: JSON.stringify({displayName:"Demo", email, password:"password123"}) });
+      state.userId = user.id; state.displayName = user.displayName;
+      const verified = await api("/api/verify", { method:"POST", body: JSON.stringify({userId: user.id, birthYear: 1995}) });
+      state.tier = verified.accountType;
+      state.composerComments = verified.commentsDefault;
+    }catch(e){ /* falls through to normal render, error banner will show */ }
+  }
+  if(s==="friends" && state.tier==="teen") state.tier = "adult"; // friends screen is adult-only by design
+  goto(s);
+}
+
+/* ---------------- screens ---------------- */
+function screenSignup(){
+  return `
+  <div class="pad" style="display:flex;flex-direction:column;gap:20px;flex:1;">
+    <div class="brand-mark">
+      ${icon('<path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6 1.5A4 4 0 0 0 6.5 19h11Z"/>', 34, 'var(--ink-soft)')}
+      <p class="brand-name">Create your account</p>
+      <p class="brand-tag">Your space to write, at your pace</p>
+    </div>
+    <div class="field-gap">
+      <div><label class="field-label">Display name</label><input id="fname" type="text" placeholder="What should we call you?"></div>
+      <div><label class="field-label">Email</label><input id="femail" type="email" placeholder="name@example.com"></div>
+      <div><label class="field-label">Password</label><input id="fpass" type="password" placeholder="At least 8 characters"></div>
+    </div>
+    <button class="btn primary block" onclick="submitSignup()">Continue</button>
+    <div class="divider"></div>
+    <button class="btn block">${icon('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',16)} Continue with email link</button>
+    <p class="footnote">Next, we'll ask your birth date to route you to the right community.</p>
+    <p class="footnote">Already have an account? <a class="link" href="#">Log in</a></p>
+  </div>`;
+}
+async function submitSignup(){
+  const displayName = document.getElementById("fname").value.trim();
+  const email = document.getElementById("femail").value.trim();
+  const password = document.getElementById("fpass").value;
+  if(!displayName || !email || !password){
+    state.apiError = "Fill in display name, email, and password to continue.";
+    return render();
+  }
+  try{
+    const user = await api("/api/signup", { method:"POST", body: JSON.stringify({displayName, email, password}) });
+    state.userId = user.id;
+    state.displayName = user.displayName;
+    goto("agegate");
+  }catch(e){ render(); }
+}
+
+function screenAgegate(){
+  return `
+  <div class="pad" style="display:flex;flex-direction:column;gap:20px;flex:1;">
+    <div class="brand-mark">
+      ${icon('<path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6 1.5A4 4 0 0 0 6.5 19h11Z"/>', 30, 'var(--ink-soft)')}
+      <p class="brand-name">My journal 1998</p>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <h1 class="h">When were you born?</h1>
+      <p class="sub">This decides which community you join. Teens and adults are always kept separate.</p>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <select id="am"><option>Month</option><option>January</option><option>June</option><option>November</option></select>
+      <select id="ad" style="width:76px;"><option>Day</option><option>4</option><option>15</option><option>28</option></select>
+      <select id="ay" style="width:96px;">
+        <option value="">Year</option>
+        <option value="2012">2012</option>
+        <option value="2008">2008</option>
+        <option value="2003">2003</option>
+        <option value="1990">1990</option>
+      </select>
+    </div>
+    <button class="btn primary block" onclick="submitAgegate()">Continue</button>
+    <div class="note">${I.lock} If you're under 18, you won't need an ID. We'll confirm your age with a quick face scan and never ask for identification.</div>
+    <p class="footnote">By continuing you agree to our terms and privacy policy.</p>
+  </div>`;
+}
+async function submitAgegate(){
+  const y = document.getElementById("ay").value;
+  if(!y){ state.apiError = "Pick a birth year to continue."; return render(); }
+  try{
+    const user = await api("/api/verify", { method:"POST", body: JSON.stringify({userId: state.userId, birthYear: Number(y)}) });
+    state.tier = user.accountType;
+    state.composerComments = user.commentsDefault;
+    goto("verify");
+  }catch(e){ render(); }
+}
+
+function screenVerify(){
+  if(state.tier === "teen"){
+    return `
+    <div class="pad" style="display:flex;flex-direction:column;gap:18px;flex:1;">
+      <div style="text-align:center;">
+        <h1 class="h">Confirm your age</h1>
+        <p class="sub">No ID needed. We just need a quick look to confirm you're a teen.</p>
+      </div>
+      <div style="position:relative;width:100%;aspect-ratio:3/4;background:var(--surface-muted);border-radius:16px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+        <div style="width:140px;height:180px;border:2px dashed var(--border-strong);border-radius:50%;"></div>
+        ${icon('<circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/>', 54, 'var(--ink-faint)')}
+        <div style="position:absolute;bottom:10px;left:10px;right:10px;background:#fff;border-radius:8px;padding:7px 10px;text-align:center;">
+          <p style="font-size:11.5px;color:var(--ink-soft);margin:0;">Center your face in the frame</p>
+        </div>
+      </div>
+      <button class="btn primary block" onclick="goto('home')">${I.camera} Start scan</button>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div class="note" style="background:transparent;padding:0;">${I.check} Handled by our verification partner, not stored on our servers</div>
+        <div class="note" style="background:transparent;padding:0;">${I.check} We only receive an age range, never the image itself</div>
+        <div class="note" style="background:transparent;padding:0;">${I.check} Takes about 30 seconds</div>
+      </div>
+      <p class="footnote">Trouble with the scan? <a class="link" href="#">Get help</a></p>
+    </div>`;
+  }
+  return `
+  <div class="pad" style="display:flex;flex-direction:column;gap:16px;flex:1;">
+    <div style="text-align:center;">
+      <h1 class="h">Verify your identity</h1>
+      <p class="sub">A quick ID check keeps this space free of predators and trolls.</p>
+    </div>
+    <div class="note"><div class="avatar" style="background:var(--sky);color:#fff;">1</div>
+      <div><p style="font-size:13px;font-weight:500;margin:0;color:var(--ink);">Upload your ID</p>
+      <p style="font-size:12px;margin:0;">Driver's license, passport, or state ID</p></div></div>
+    <div class="note" style="opacity:.7;"><div class="avatar">2</div>
+      <div><p style="font-size:13px;font-weight:500;margin:0;color:var(--ink);">Take a selfie</p>
+      <p style="font-size:12px;margin:0;">To match your face to the ID</p></div></div>
+    <div style="border:1.5px dashed var(--border-strong);border-radius:16px;padding:28px 14px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+      ${I.id}
+      <p style="font-size:12.5px;color:var(--ink-soft);margin:0;">Drag your ID here or</p>
+      <button class="btn small">Choose file</button>
+    </div>
+    <button class="btn primary block" onclick="goto('home')">Continue</button>
+    <div class="note">${I.lock} Handled by our verification partner. We never see or store your ID.</div>
+  </div>`;
+}
+
+function screenHome(){
+  const teen = state.tier === "teen";
+  const clouds = teen
+    ? `<div class="cloud" style="width:60px;height:22px;top:8px;left:20px;"></div><div class="cloud" style="width:80px;height:28px;top:22px;left:56px;opacity:.4;"></div><div class="cloud" style="width:44px;height:16px;top:4px;right:36px;opacity:.35;"></div>`
+    : `<div class="cloud" style="width:70px;height:24px;top:10px;left:14px;opacity:.5;"></div><div class="cloud" style="width:90px;height:30px;top:24px;right:26px;opacity:.35;"></div>`;
+  return `
+  <div class="weather-header ${teen?'teen':'adult'}">
+    ${clouds}
+    <div class="header-row">
+      <div><p class="eyebrow">${teen?'Teen space':'Adult space'}</p><p class="greeting">Good afternoon, ${state.displayName||'friend'}</p></div>
+      <div class="weather-icon">${teen ? icon('<circle cx="12" cy="12" r="4.5"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>', 17, 'var(--sky-600)') : I.cloud.replace('18','15')}</div>
+    </div>
+  </div>
+  ${teen ? `<div class="safety-strip">${icon('<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/>',14)} Teen space: no DMs, comments off by default</div>` : ``}
+  <div class="body-scroll">
+    <button class="btn primary block" onclick="goto('composer')">${I.plus} Write a new entry</button>
+    ${teen
+      ? `<p class="footnote" style="text-align:left;color:var(--ink-faint);margin-top:2px;">Community feed</p>`
+      : `<div class="tab-row"><span class="tab active">Community feed</span><span class="tab">Following</span></div>`}
+    ${state.feed.length === 0
+      ? `<p class="footnote" style="padding:24px 0;">No entries yet. Be the first to write something.</p>`
+      : state.feed.map(e => `
+        <div class="entry-card">
+          <div class="entry-meta"><span>${e.authorDisplay} &middot; ${timeAgo(e.createdAt)}</span>${icon('<path d="M4 5h16v11H8l-4 4V5Z"/>',14,'var(--ink-faint)')}</div>
+          <p class="entry-body">${escapeHtml(e.text)}</p>
+          <div style="display:flex;gap:6px;"><span class="pill">🤍 0</span><span class="pill">${e.commentsAllowed ? '0 comments' : '✨ react only'}</span></div>
+        </div>`).join("")}
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item active"><span style="font-size:18px;">${icon('<path d="M4 11l8-7 8 7"/><path d="M6 10v9h5v-5h2v5h5v-9"/>',18)}</span><span>Home</span></div>
+    <div class="nav-item"><span style="font-size:18px;">${icon('<path d="M5 4h9a3 3 0 0 1 3 3v13l-6-3-6 3V4Z"/>',18)}</span><span>My entries</span></div>
+    <div class="nav-item" onclick="${teen?'':"goto('friends')"}"><span style="font-size:18px;">${teen ? icon('<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5M15.5 13.5c2.3.3 4 1.8 4 4"/>',18) : I.message.replace('18','18')}</span><span>${teen?'Friends':'Messages'}</span></div>
+    <div class="nav-item" onclick="goto('settings')"><span style="font-size:18px;">${icon('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.9 2.9l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.9-2.9l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.9-2.9l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.9 2.9l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.6 1Z"/>',18)}</span><span>Settings</span></div>
+  </div>`;
+}
+
+const CRISIS_TRIGGERS = ["want to die","end it all","kill myself","no reason to live","hurt myself"];
+
+function screenComposer(){
+  const teen = state.tier === "teen";
+  return `
+  <div class="topbar">
+    ${icon('<path d="M18 6 6 18M6 6l12 12"/>',17)}
+    <span class="title">New entry</span>
+    <span onclick="postEntry()" style="font-size:14px;font-weight:500;color:var(--sky-600);cursor:pointer;">Post</span>
+  </div>
+  <div class="pad" style="display:flex;flex-direction:column;gap:14px;flex:1;">
+    <textarea id="composerText" oninput="checkCrisis()" placeholder="What's on your mind today?" style="min-height:110px;border:none;padding:0;">${state.composerText}</textarea>
+    <div id="crisisNote"></div>
+    <div class="divider"></div>
+    <div class="row-between">
+      <div style="display:flex;align-items:center;gap:8px;">${I.eyeoff}<span style="font-size:13px;">Post anonymously</span></div>
+      <div class="toggle ${state.composerAnon?'on':''}" onclick="toggleAnon()"><div class="knob"></div></div>
+    </div>
+    <div style="${teen?'opacity:.55;':''}">
+      <div class="row-between">
+        <div style="display:flex;align-items:center;gap:8px;">${I.message}<span style="font-size:13px;">Allow comments</span></div>
+        <div class="toggle ${state.composerComments?'on':''}" onclick="toggleComments()"><div class="knob"></div></div>
+      </div>
+      <p class="footnote" style="text-align:left;margin-top:4px;">${teen ? "Off by default in teen space. Reactions only, unless you turn this on." : "Off means people can only react with emoji"}</p>
+    </div>
+    <div class="divider"></div>
+    <button class="btn small" onclick="simulateSevere()">Fill in demo crisis language</button>
+  </div>`;
+}
+function toggleAnon(){ state.composerAnon = !state.composerAnon; render(); }
+function toggleComments(){ state.composerComments = !state.composerComments; render(); }
+function checkCrisis(){
+  const val = document.getElementById("composerText").value;
+  state.composerText = val;
+  const hit = CRISIS_TRIGGERS.some(t => val.toLowerCase().includes(t));
+  document.getElementById("crisisNote").innerHTML = hit ? `
+    <div class="note" style="background:var(--clay-100);color:var(--clay-700);">
+      ${icon('<path d="M12 20s-7-4.4-9.5-8.7C.6 8 2 4.5 5.4 4.1 7.6 3.9 9.5 5 12 8c2.5-3 4.4-4.1 6.6-3.9C22 4.5 23.4 8 21.5 11.3 19 15.6 12 20 12 20Z"/>',16,'var(--clay-700)')}
+      <div><p style="font-weight:500;margin:0 0 3px;color:var(--clay-700);font-size:13px;">It sounds like you're carrying a lot right now</p>
+      <p style="margin:0;font-size:12px;color:var(--clay-700);">You can still post. If you want to talk to someone now, call or text 988, or text HOME to 741741.</p></div>
+    </div>` : "";
+}
+async function postEntry(){
+  const text = (document.getElementById("composerText")?.value ?? state.composerText).trim();
+  if(!text){ state.apiError = "Write something before posting."; return render(); }
+  try{
+    const entry = await api("/api/entries", { method:"POST", body: JSON.stringify({
+      userId: state.userId, text, anonymous: state.composerAnon, commentsAllowed: state.composerComments,
+    })});
+    state.composerText = ""; state.composerAnon = false;
+    state.composerComments = state.tier === "teen" ? false : true;
+    if(entry.crisisTier >= 3){ goto("crisis"); }
+    else { goto("home"); }
+  }catch(e){ render(); }
+}
+// Demo-only helper: types a known trigger phrase into the composer so you can see
+// a real backend round-trip land on the crisis screen, without faking the classifier.
+function simulateSevere(){
+  state.composerText = "I want to die and don't see another way out.";
+  goto("composer");
+}
+
+function screenCrisis(){
+  return `
+  <div class="crisis-overlay">
+    <div class="crisis-card">
+      <div style="text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center;">
+        ${I.heart.replace('currentColor','var(--clay)')}
+        <h1 class="h" style="font-size:18px;">You don't have to go through this alone</h1>
+        <p class="sub">What you wrote sounds really heavy. Support is available right now, for free, any time.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn danger" style="height:54px;justify-content:flex-start;padding:0 16px;">
+          ${I.phone}
+          <span style="text-align:left;"><span style="display:block;font-size:13px;font-weight:500;">Call or text 988</span><span style="display:block;font-size:11px;opacity:.9;">Suicide and Crisis Lifeline</span></span>
+        </button>
+        <button class="btn" style="height:54px;justify-content:flex-start;padding:0 16px;">
+          ${I.message}
+          <span style="text-align:left;"><span style="display:block;font-size:13px;font-weight:500;">Text HOME to 741741</span><span style="display:block;font-size:11px;color:var(--ink-soft);">Crisis Text Line</span></span>
+        </button>
+      </div>
+      <div class="divider"></div>
+      <p class="footnote">Your entry has been saved privately. Nothing was shared with anyone else.</p>
+      <button class="btn block" onclick="goto('composer')">Go back to my entry</button>
+    </div>
+  </div>`;
+}
+
+function initials(name){ return (name||"?").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(); }
+
+function screenFriends(){
+  const list = Array.isArray(state.friendData) ? state.friendData : [];
+  const pending = list.filter(f => f.status === "pending" && f.recipientId === state.userId);
+  const accepted = list.filter(f => f.status === "accepted");
+  return `
+  <div class="pad" style="padding-bottom:0;">
+    <p style="font-weight:500;font-size:16px;margin:0;">Friends &amp; messages</p>
+    <p class="footnote" style="text-align:left;margin-top:4px;">Adult space only</p>
+  </div>
+  <div class="body-scroll">
+    <p class="footnote" style="text-align:left;color:var(--ink-faint);">Friend requests</p>
+    ${pending.length === 0 ? `<p class="footnote" style="text-align:left;">No pending requests.</p>` : pending.map(f => `
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="avatar">${initials(f.requesterId)}</div>
+        <div style="flex:1;"><p style="font-size:13px;font-weight:500;margin:0;">User ${f.requesterId}</p><p style="font-size:12px;color:var(--ink-soft);margin:0;">Wants to be friends</p></div>
+        <button class="btn small primary" onclick="acceptFriend('${f.id}')">Accept</button>
+      </div>`).join("")}
+    <div class="divider"></div>
+    <div class="note">${I.info} Messaging only unlocks once a request is accepted by both people.</div>
+    <button class="btn small" onclick="sendDemoRequest()">Send a friend request to the demo account (Riley N.)</button>
+    <p class="footnote" style="text-align:left;color:var(--ink-faint);margin-top:6px;">Friends</p>
+    ${accepted.length === 0 ? `<p class="footnote" style="text-align:left;">No accepted friends yet.</p>` : accepted.map(f => `
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="avatar">${initials(f.requesterId === state.userId ? f.recipientId : f.requesterId)}</div>
+        <div style="flex:1;"><p style="font-size:13px;font-weight:500;margin:0;">Friend</p><p style="font-size:12px;color:var(--ink-soft);margin:0;">Accepted</p></div>
+        ${I.message}
+      </div>`).join("")}
+  </div>
+  <div class="bottom-nav"><button class="btn small block" onclick="goto('home')">Back to home</button></div>`;
+}
+async function acceptFriend(id){
+  try{ await api(`/api/friends/${id}/accept`, { method:"POST" }); await loadFriends(); }catch(e){ render(); }
+}
+async function sendDemoRequest(){
+  try{ await api("/api/friends/request", { method:"POST", body: JSON.stringify({userId: state.userId, recipientId: "demo-riley"}) }); await loadFriends(); }
+  catch(e){ render(); }
+}
+
+function screenSettings(){
+  const teen = state.tier === "teen";
+  const u = state.settingsUser;
+  const anonOn = u ? u.anonymousDefault : false;
+  const commentsOn = u ? u.commentsDefault : !teen;
+  return `
+  <div class="pad" style="padding-bottom:0;"><p style="font-weight:500;font-size:16px;margin:0;">Settings</p></div>
+  <div class="body-scroll">
+    <div>
+      <p class="settings-group-label">Privacy defaults</p>
+      <div class="settings-row"><span style="font-size:13px;">Post anonymously by default</span><div class="toggle ${anonOn?'on':''}" onclick="patchSettings({anonymousDefault: ${!anonOn}})"><div class="knob"></div></div></div>
+      <div class="settings-row"><span style="font-size:13px;">Allow comments by default</span><div class="toggle ${commentsOn?'on':''}" onclick="patchSettings({commentsDefault: ${!commentsOn}})"><div class="knob"></div></div></div>
+      ${teen ? '' : `<div class="settings-row"><span style="font-size:13px;">Allow new friend requests</span><div class="toggle on"><div class="knob"></div></div></div>`}
+    </div>
+    <div>
+      <p class="settings-group-label">Account</p>
+      <div class="settings-row"><span style="font-size:13px;">Verification status</span><span class="badge success">${u ? u.verificationStatus : "..."}</span></div>
+      <div class="settings-row"><span style="font-size:13px;">Email</span><span style="font-size:12px;color:var(--ink-soft);">${u ? escapeHtml(u.email) : "..."}</span></div>
+      ${teen ? '' : `<div class="settings-row"><span style="font-size:13px;">Blocked accounts</span>${I.chev}</div>`}
+    </div>
+    <div>
+      <p class="settings-group-label">Support</p>
+      <div class="settings-row"><span style="font-size:13px;">Crisis resources</span>${I.chev}</div>
+      <div class="settings-row"><span style="font-size:13px;color:var(--clay);">Delete account</span>${icon('<path d="M9 6l6 6-6 6"/>',15,'var(--clay)')}</div>
+    </div>
+  </div>
+  <div class="bottom-nav"><button class="btn small block" onclick="goto('home')">Back to home</button></div>`;
+}
+async function patchSettings(patch){
+  try{
+    state.settingsUser = await api(`/api/users/${state.userId}/settings`, { method:"PATCH", body: JSON.stringify(patch) });
+    render();
+  }catch(e){ render(); }
+}
+
+/* ---------------- render ---------------- */
+function errorBanner(){
+  if(!state.apiError) return "";
+  return `<div style="background:var(--clay-100);color:var(--clay-700);font-size:11.5px;padding:8px 14px;text-align:center;">${state.apiError}</div>`;
+}
+function render(){
+  const app = document.getElementById("app");
+  const map = {
+    signup: screenSignup, agegate: screenAgegate, verify: screenVerify,
+    home: screenHome, composer: screenComposer, crisis: screenCrisis,
+    friends: screenFriends, settings: screenSettings,
+  };
+  app.innerHTML = errorBanner() + (map[state.screen] || screenSignup)();
+  renderDevLinks();
+}
+render();
+</script>
+</body>
+</html>
