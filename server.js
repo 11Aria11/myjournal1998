@@ -24,6 +24,7 @@ const crypto = require("crypto");
 const DB_PATH = path.join(__dirname, "data.json");
 const app = express();
 app.use(express.json());
+app.use(express.static(__dirname)); // serves index.html at "/"
 
 // Very permissive CORS so the static frontend (opened from file:// or another port) can call this.
 app.use((req, res, next) => {
